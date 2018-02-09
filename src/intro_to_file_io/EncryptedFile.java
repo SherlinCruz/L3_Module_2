@@ -19,6 +19,8 @@ public class EncryptedFile {
 
 		}
 System.out.println(code);
+
+
 	
 	
 try {
@@ -29,9 +31,18 @@ try {
 
 	fw.close();
 } catch (IOException e) {
+	// something went wrong
 	e.printStackTrace();
+	
+	
+	
+	
 }
 	
+
+
+
+
 	}
 
 }

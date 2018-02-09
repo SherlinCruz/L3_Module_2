@@ -53,7 +53,7 @@ public class IntroToFileIO {
 			FileWriter fw = new FileWriter("src/intro_to_file_io/test2.txt");
 
 			/*
-			 * NOTE: To append to a file that already exists, add true as a second parameter
+			 * NOTE: To APPEND to a file that already exists, add true as a second parameter
 			 * when calling the FileWriter constructor. (e.g. FileWriter fw = new
 			 * FileWriter("src/intro_to_file_io/test2.txt", true);)
 			 */
