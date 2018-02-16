@@ -4,26 +4,18 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class CopyrightNotice {
-public static void main(String[] args) {
-	
+	public static void main(String[] args) {
 
-	
-	
-	
-	
-	try {
-		FileWriter fw = new FileWriter("src/intro_to_file_io/test3.txt", true);
+		try {
+			FileWriter fw = new FileWriter("src/intro_to_file_io/test3.txt", true);
 
-fw.write("\n //Copyright © 2017 by Bill Jobs");
+			fw.write("\n //Copyright © 2018 Sherlin Cruz");
 
-		fw.close();
-	} catch (IOException e) {
-		// something went wrong
-		e.printStackTrace();
-		
-		
-		
-		
+			fw.close();
+		} catch (IOException e) {
+			// something went wrong
+			e.printStackTrace();
+
+		}
 	}
-}
 }
