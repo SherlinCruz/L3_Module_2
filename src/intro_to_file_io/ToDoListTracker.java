@@ -2,7 +2,9 @@ package intro_to_file_io;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -63,9 +65,9 @@ public class ToDoListTracker implements ActionListener {
 		for (String task : list) {
 
 			allTask += task;
-			
+
 			allTask += "\n";
-			
+
 		}
 
 		taskList.setText(allTask);
@@ -74,17 +76,13 @@ public class ToDoListTracker implements ActionListener {
 		frame.repaint();
 
 	}
-	
-	/*void JFileChooser(){
-		
-	
-	JFileChooser jfc = new JFileChooser();
-	int returnVal = jfc.showOpenDialog(null);
-	if (returnVal == JFileChooser.APPROVE_OPTION) {
-		String fileName = jfc.getSelectedFile().getAbsolutePath();
-		System.out.println(fileName);
-	}
-	}*/
+
+	/*
+	 * void JFileChooser(){ JFileChooser jfc = new JFileChooser(); int returnVal =
+	 * jfc.showOpenDialog(null); if (returnVal == JFileChooser.APPROVE_OPTION) {
+	 * String fileName = jfc.getSelectedFile().getAbsolutePath();
+	 * System.out.println(fileName); } }
+	 */
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -99,34 +97,88 @@ public class ToDoListTracker implements ActionListener {
 
 			updateTaskList();
 
-			System.out.println(taskAdded);
+			// System.out.println(taskAdded);
 
 		}
 
 		if (e.getSource().equals(save)) {
 			try {
-				JFileChooser jfc = new JFileChooser() ;
+				JFileChooser jfc = new JFileChooser();
 				int returnVal = jfc.showOpenDialog(null);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					String fileName = jfc.getSelectedFile().getAbsolutePath();
 					System.out.println(fileName);
 				}
 
-			FileWriter fw = new FileWriter(jfc.getSelectedFile(), true);
-		
+				FileWriter fw = new FileWriter(jfc.getSelectedFile(), true);
 
-			for (String task : list) {
+				for (String task : list) {
 
-				fw.write(task + "\n");
-			}
-			
-			
+					fw.write(task + "\n");
+				}
 
 				fw.close();
 			} catch (IOException e2) {
 				e2.printStackTrace();
 			}
+		}
 
+		if (e.getSource().equals(removeTask)) {
+
+			if (list.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "List is emtpty.");
+			} else {
+
+				String itemRemove = JOptionPane.showInputDialog("Which item from the list do you want to remove ?");
+
+				// for (int i = 0; i < list.size(); i++) {
+				// if(list.get(i).equalsIgnoreCase(itemRemove)) {
+
+				list.remove(itemRemove);
+
+				// }// }
+				// We can use the for loop code or simply remove it like above
+
+			}
+
+			updateTaskList();
+		}
+
+		if (e.getSource().equals(load)) {
+
+			list = new ArrayList<String>();
+			String fileName = "";
+
+			JFileChooser jfc = new JFileChooser();
+			int returnVal = jfc.showOpenDialog(null);
+			if (returnVal == JFileChooser.APPROVE_OPTION) {
+				fileName = jfc.getSelectedFile().getAbsolutePath();
+				System.out.println(fileName);
+			}
+
+			try {
+
+				BufferedReader br = new BufferedReader(new FileReader(fileName));
+
+				String line = br.readLine();
+				while (line != null) {
+					list.add(line);
+					line = br.readLine();
+
+				}
+
+				updateTaskList();
+				// br.close();
+				// fw.close();
+
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+			updateTaskList();
 		}
 
 	}
